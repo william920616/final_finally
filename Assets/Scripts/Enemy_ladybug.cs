@@ -6,6 +6,7 @@ public class Enemy_ladybug : MonoBehaviour
 {
     public bool go = true;
     public float speed = 1;
+    private int HP = 50;
 
     void Start()
     {
@@ -17,7 +18,7 @@ public class Enemy_ladybug : MonoBehaviour
     void Update()
     {
         if (go == true)
-            transform.Translate(-3 * Time.deltaTime, 0, 0);
+            transform.Translate(-2 * Time.deltaTime, 0, 0);
     }
     IEnumerator Move1_IE()
     {
@@ -30,4 +31,27 @@ public class Enemy_ladybug : MonoBehaviour
             
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Sword")
+        {
+            HP -= 25;
+            Debug.Log(20);
+        }
+        if (HP <= 0)
+        {
+            Destroy(this.gameObject);
+
+        }
+        if (other.gameObject.tag == "Player")
+        {
+             PlayerController. HP -= 20;
+            //Debug.Log(10);
+        }
+    }
 }
+
+
+
+

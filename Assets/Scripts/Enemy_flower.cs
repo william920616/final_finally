@@ -10,6 +10,8 @@ public class Enemy_flower : MonoBehaviour
     public Transform firePoint4;
     public Transform firePoint5;
     public GameObject bullet;
+
+    private float HP = 100;
     void Start()
     {
         StartCoroutine(KeepShooting());
@@ -25,12 +27,31 @@ public class Enemy_flower : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(4f);
             Instantiate(bullet, firePoint.transform.position, firePoint.transform.rotation);
             Instantiate(bullet, firePoint2.transform.position, firePoint2.transform.rotation);
             Instantiate(bullet, firePoint3.transform.position, firePoint3.transform.rotation);
             Instantiate(bullet, firePoint4.transform.position, firePoint4.transform.rotation);
             Instantiate(bullet, firePoint5.transform.position, firePoint5.transform.rotation);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Sword")
+        {
+            HP -= 25;
+            //Debug.Log(20);
+        }
+        if (HP <= 0)
+        {
+            Destroy(this.gameObject);
+
+        }
+        if (other.gameObject.tag == "Player")
+        {
+            PlayerController.HP -= 10;
+            //Debug.Log(10);
         }
     }
 } 
